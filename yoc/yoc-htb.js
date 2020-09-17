@@ -182,13 +182,13 @@ function YocHtb(configs) {
         queryObj.cb
             = 'window.' + SpaceCamp.NAMESPACE + '.' + __profile.namespace + '.adResponseCallbacks.' + callbackId;
 
-
         if (identityData && identityData.AdserverOrgIp && identityData.AdserverOrgIp.data) {
             var adsrvrUids = identityData.AdserverOrgIp.data.uids;
             if (Utilities.isArray(adsrvrUids)) {
                 for (var j = 0; j < adsrvrUids.length; j++) {
                     if (adsrvrUids[j].ext && adsrvrUids[j].ext.rtiPartner === 'TDID') {
                         queryObj.tdid = adsrvrUids[j].id;
+
                         break;
                     }
                 }
@@ -364,8 +364,8 @@ function YocHtb(configs) {
                 if (gdprStatus.consentString) {
                     pixelUrl = pixelUrl + '&gdpr_consent=' + encodeURIComponent(gdprStatus.consentString);
                 }
-                // eslint-disable-next-line camelcase
-                pixelUrl = pixelUrl + '&gdpr_applies=' + Utilities.isBoolean(gdprStatus.applies) ? Number(gdprStatus.applies) : 1;
+                pixelUrl = pixelUrl + '&gdpr_applies='
+                    + (Utilities.isBoolean(gdprStatus.applies) ? Number(gdprStatus.applies) : 1);
             }
 
             /* --------------------------------------------------------------------------------------- */
